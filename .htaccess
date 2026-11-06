@@ -1,0 +1,11 @@
+DirectoryIndex index.html
+
+# Dynamic requests must use the primary HTTPS origin.
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^(?:spensoa9\.beget\.tech|freya-design\.ru)$ [NC]
+RewriteCond %{HTTP:X-Forwarded-Proto} !https [OR]
+RewriteCond %{HTTP_HOST} !^freya-design\.ru$ [NC]
+RewriteRule ^ https://freya-design.ru%{REQUEST_URI} [R=301,L]
+
+# The former inspiration page is retired; send old links to the blog.
+RewriteRule ^cases/?$ /blog/ [R=301,L]
